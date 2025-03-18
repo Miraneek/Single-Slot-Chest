@@ -1,2 +1,4 @@
-package SingleSlotChest.singleslotchest.block.entity;public class ModBlockEntities {
+package SingleSlotChest.singleslotchest.block.entity;
+
+public class ModBlockEntities {
 }
