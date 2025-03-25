@@ -1,9 +1,13 @@
 package SingleSlotChest.singleslotchest;
 
 import SingleSlotChest.singleslotchest.block.ModBlocks;
+import SingleSlotChest.singleslotchest.block.entity.ModBlockEntities;
 import SingleSlotChest.singleslotchest.item.ModItems;
+import SingleSlotChest.singleslotchest.screen.ModMenuTypes;
+import SingleSlotChest.singleslotchest.screen.SingleSlotChestScreen;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
@@ -66,6 +70,8 @@ public class Singleslotchest {
 
         ModBlocks.register(modEventBus);
         ModItems.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
 
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
@@ -95,11 +101,7 @@ public class Singleslotchest {
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            if (ModBlocks.SINGLE_SLOT_CHEST.isPresent()) {
-                event.accept(ModBlocks.SINGLE_SLOT_CHEST.get());
-            } else {
-                LOGGER.error("SINGLE_SLOT_CHEST is not initialized!");
-            }
+            event.accept(ModBlocks.SINGLE_SLOT_CHEST);
         }
     }
 
@@ -117,9 +119,9 @@ public class Singleslotchest {
 
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-            // Some client setup code
-            LOGGER.info("HELLO FROM CLIENT SETUP");
-            LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+            event.enqueueWork(() -> {
+                MenuScreens.register(ModMenuTypes.SINGLE_SLOT_CHEST_MENU.get(), SingleSlotChestScreen::new);
+            });
         }
     }
 }

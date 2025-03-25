@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "singleslotchest:block/single_slot_chest" }
+    "": {
+      "model": "singleslotchest:block/single_slot_chest"
+    }
   }
 }
