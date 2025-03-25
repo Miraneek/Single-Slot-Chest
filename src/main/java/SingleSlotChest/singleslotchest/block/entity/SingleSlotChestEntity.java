@@ -31,12 +31,7 @@ public class SingleSlotChestEntity extends BlockEntity implements MenuProvider {
 
         @Override
         public int getSlotLimit(int slot) {
-            return 128;
-        }
-
-        @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return true;
+            return 90;
         }
 
         // Critical override to bypass item's max stack size

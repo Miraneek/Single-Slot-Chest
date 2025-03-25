@@ -15,6 +15,8 @@ public class SingleSlotChestScreen extends AbstractContainerScreen<SingleSlotChe
 
     public SingleSlotChestScreen(SingleSlotChestMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
+        this.imageWidth = 176;  // or your custom width
+        this.imageHeight = 166; // or your custom height
     }
 
     @Override
@@ -25,14 +27,13 @@ public class SingleSlotChestScreen extends AbstractContainerScreen<SingleSlotChe
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShaderTexture(0, TEXTURE);
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
 
+        // Let GuiGraphics handle the texture binding
         guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
     }
+
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
